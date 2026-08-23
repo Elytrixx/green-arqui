@@ -1,0 +1,84 @@
+/* CONFIGURACIÓN GENERAL */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  color: #111111;
+  background-color: #ffffff;
+}
+
+/* TIPOGRAFÍA DE TÍTULOS */
+
+h1,
+h2,
+h3 {
+  font-family: "Garet", Arial, sans-serif;
+}
+
+/* ENCABEZADO */
+
+header {
+  min-height: 85px;
+  padding: 8px 35px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background-color: #ffffff;
+
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+header img {
+  width: 165px;
+  height: auto;
+  max-height: 70px;
+  display: block;
+}
+
+nav ul {
+  list-style: none;
+
+  display: flex;
+  align-items: center;
+
+  gap: 65px;
+}
+
+nav a {
+  font-family: Arial, sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  color: #111111;
+  text-decoration: none;
+}
+
+nav a:hover {
+  color: #328700;
+}
+
+/* INICIO - IMAGEN PRINCIPAL */
+
+.presentacion-inicio {
+  min-height: 510px;
+
+  background-image: url("../img/inicio.jpg");
+  background-size: cover;
+  background-position: center;
+
+  color: #ffffff;
+
+  padding: 90px 9%;
+}
