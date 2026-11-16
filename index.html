@@ -141,7 +141,7 @@
                 Explora algunas de nuestras propuestas conceptuales donde integramos arquitectura, biología y sostenibilidad.
             </p>
 
-            <div class="contenedor-proyectos">
+            <div class="contenedor-proyectos" id="lista-proyectos">
                 <article class="tarjeta-proyecto">
                     <div class="imagen-proyecto">
                         <img src="./img/proyecto-papa-razzi.jpg" alt="Render del proyecto Papa-razzi Cloud Kitchen">
@@ -409,12 +409,65 @@
         </section>
     </main>
 
-    <footer>
+   <footer>
         <p>
-            &copy; 2026 Green Arqui. Todos los derechos reservados.
+            &copy; 2026 Green Arqui. Todos los derechos reservados. | 
+            <a href="#admin" id="btn-abrir-admin" class="link-admin">Acceso Admin</a>
         </p>
     </footer>
 
+<!-- MODAL LOGIN Y PANEL ADMIN -->
+    <div id="modal-admin" class="modal-admin" hidden>
+        <div class="contenido-modal-admin">
+            <button type="button" id="btn-cerrar-admin" class="btn-cerrar-admin">&times;</button>
+
+            <!-- Pantalla 1: Login -->
+            <div id="vista-login">
+                <h2>Acceso Administrativo</h2>
+                <p>Ingresa tus credenciales de Green Arqui para gestionar proyectos y cotizaciones.</p>
+                <form id="form-login">
+                    <div class="campo-formulario">
+                        <label for="admin-usuario">Usuario</label>
+                        <input type="text" id="admin-usuario" placeholder="Ej. admin" required>
+                    </div>
+                    <div class="campo-formulario">
+                        <label for="admin-password">Contraseña</label>
+                        <input type="password" id="admin-password" placeholder="••••••••" required>
+                    </div>
+                    <p id="error-login" class="error-login" hidden>Usuario o contraseña incorrectos.</p>
+                    <button type="submit" class="btn-admin-primario">Ingresar</button>
+                </form>
+            </div>
+
+            <!-- Pantalla 2: Panel de Gestión -->
+            <div id="vista-panel" hidden>
+                <div class="cabecera-panel">
+                    <h2>Panel de Gestión - Green Arqui</h2>
+                    <button type="button" id="btn-cerrar-sesion" class="btn-cerrar-sesion">Cerrar sesión</button>
+                </div>
+
+                <!-- Subsección A: Agregar nuevo proyecto -->
+                <div class="bloque-panel">
+                    <h3>Agregar nuevo proyecto al portafolio</h3>
+                    <form id="form-nuevo-proyecto" class="form-panel-grid">
+                        <input type="text" id="proj-titulo" placeholder="Nombre del proyecto" required>
+                        <input type="text" id="proj-categoria" placeholder="Categoría (Ej. Comercial)" required>
+                        <input type="text" id="proj-imagen" placeholder="Ruta imagen (Ej. ./img/inicio.jpg)" required>
+                        <input type="text" id="proj-boton" placeholder="Texto botón (Ej. Explora esta idea)" required>
+                        <textarea id="proj-descripcion" rows="3" placeholder="Descripción sostenible del proyecto" required></textarea>
+                        <button type="submit" class="btn-admin-primario">Publicar proyecto</button>
+                    </form>
+                    <div id="lista-proyectos-admin" class="lista-admin-items"></div>
+                </div>
+
+                <!-- Subsección B: Solicitudes de contacto recibidas -->
+                <div class="bloque-panel">
+                    <h3>Solicitudes de cotización recibidas</h3>
+                    <div id="lista-solicitudes-admin" class="lista-admin-items"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 <script src="./JS/app.js"></script>
 
 </body>

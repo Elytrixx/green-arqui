@@ -720,4 +720,176 @@ footer {
   .datos-contacto address {
     padding-left: 0;
   }
+
+  /* ============================= */
+/* PANEL ADMIN Y MODAL LOGIN     */
+/* ============================= */
+
+.link-admin {
+  color: #d6a900;
+  text-decoration: none;
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+.link-admin:hover {
+  text-decoration: underline;
+}
+
+.modal-admin {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 2000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.modal-admin[hidden] {
+  display: none;
+}
+
+.contenido-modal-admin {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 850px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 8px;
+  padding: 35px;
+  position: relative;
+}
+
+.btn-cerrar-admin {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #333333;
+}
+
+#vista-login h2,
+.cabecera-panel h2 {
+  color: #328700;
+  margin-bottom: 10px;
+}
+
+#vista-login p {
+  margin-bottom: 20px;
+  font-size: 15px;
+}
+
+#form-login {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 400px;
+}
+
+.error-login {
+  color: #b00020;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.btn-admin-primario {
+  padding: 10px 18px;
+  background-color: #16803a;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-admin-primario:hover {
+  background-color: #126b31;
+}
+
+.cabecera-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #e4ece1;
+  padding-bottom: 15px;
+  margin-bottom: 25px;
+}
+
+.btn-cerrar-sesion {
+  background-color: #d6a900;
+  color: #ffffff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.bloque-panel {
+  margin-bottom: 30px;
+}
+
+.bloque-panel h3 {
+  color: #6b8e5a;
+  margin-bottom: 15px;
+  font-size: 21px;
+}
+
+.form-panel-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.form-panel-grid input,
+.form-panel-grid textarea {
+  padding: 8px 10px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
+}
+
+.form-panel-grid textarea,
+.form-panel-grid button {
+  grid-column: 1 / -1;
+}
+
+.item-admin {
+  background-color: #f9fbf8;
+  border: 1px solid #dce6d8;
+  padding: 14px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.item-admin p {
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.btn-eliminar-item {
+  background-color: #c62828;
+  color: #ffffff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .form-panel-grid {
+    grid-template-columns: 1fr;
+  }
+}
 }
