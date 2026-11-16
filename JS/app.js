@@ -4,7 +4,7 @@
 const formContacto = document.getElementById("form-contacto");
 const mensajeExito = document.getElementById("mensaje-exito");
 
-if (formcontacto) {
+if (formContacto) {
   formContacto.addEventListener("submit", function (evento) {
     evento.preventDefault();
     const nuevaSolicitud = {
@@ -113,9 +113,9 @@ function procesarConsultaIa(textoUsuario) {
   setTimeout(() => {
     mensajesIa.removeChild(burbujaEscribiendo);
 
-    if (consulta.includes("casa") || consulta.includes("vivienda") || consulta.includes("residencia") || consulta.includes("construir")) {
+    if (consulta.includes("casa") || consulta.includes("vivienda") || consulta.includes("residencia") || consulta.includes("construir") || consulta.includes("edificio")) {
       servicioSugerido = "diseno-arquitectonico";
-      respuesta = `Para proyectos residenciales, integramos ventilación pasiva, confort térmico y vegetación nativa (como en <em>Terravia Residences</em>). Te sugerimos nuestro servicio de <strong>Diseño arquitectónico sostenible</strong>.`;
+      respuesta = `Para proyectos residenciales o edificaciones, integramos ventilación pasiva, confort térmico y vegetación nativa (como en <em>Terravia Residences</em>). Te sugerimos nuestro servicio de <strong>Diseño arquitectónico sostenible</strong>.`;
     } else if (consulta.includes("local") || consulta.includes("comercial") || consulta.includes("restaurante") || consulta.includes("hostal") || consulta.includes("negocio")) {
       servicioSugerido = "diseno-arquitectonico";
       respuesta = `En espacios comerciales o turísticos (como <em>Papa-razzi</em> o <em>The Lost City</em>), optimizamos eficiencia energética y flujos operativos. Te recomendamos <strong>Diseño arquitectónico sostenible</strong>.`;

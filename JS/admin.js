@@ -7,7 +7,8 @@ const formLogin = document.getElementById("form-login");
 const errorLogin = document.getElementById("error-login");
 const btnCerrarSesion = document.getElementById("btn-cerrar-sesion");
 
-const ADMIN_USER = "admin";
+// Usuarios permitidos (insensible a mayúsculas/minúsculas)
+const USUARIOS_VALIDOS = ["admin", "glenma", "justin"];
 const ADMIN_PASS = "greenarqui2026";
 
 function verificarSesion() {
@@ -24,7 +25,10 @@ function verificarSesion() {
 
 formLogin.addEventListener("submit", (e) => {
   e.preventDefault();
-  if (document.getElementById("admin-usuario").value === ADMIN_USER && document.getElementById("admin-password").value === ADMIN_PASS) {
+  const userInput = document.getElementById("admin-usuario").value.trim().toLowerCase();
+  const passInput = document.getElementById("admin-password").value;
+
+  if (USUARIOS_VALIDOS.includes(userInput) && passInput === ADMIN_PASS) {
     sessionStorage.setItem("admin_logueado", "true");
     errorLogin.hidden = true;
     formLogin.reset();
