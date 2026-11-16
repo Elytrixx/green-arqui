@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Admin - Green Arqui</title>
+    <link rel="stylesheet" href="./CSS/styles.css">
+</head>
+<body class="cuerpo-admin">
+
+    <header class="header-admin">
+        <a href="index.html">
+            <img src="./img/logo-header.png" alt="Logo Green Arqui">
+        </a>
+        <h1>Gestión Administrativa</h1>
+    </header>
+
+    <main class="contenedor-admin-pagina">
+        <!-- Pantalla 1: Login -->
+        <div id="vista-login" class="tarjeta-admin-login">
+            <h2>Acceso al Sistema</h2>
+            <p>Ingresa tus credenciales</p>
+            <form id="form-login">
+                <div class="campo-formulario">
+                    <label for="admin-usuario">Usuario</label>
+                    <input type="text" id="admin-usuario" placeholder="Ej. admin" required>
+                </div>
+                <div class="campo-formulario">
+                    <label for="admin-password">Contraseña</label>
+                    <input type="password" id="admin-password" placeholder="••••••••" required>
+                </div>
+                <p id="error-login" class="error-login" hidden>Usuario o contraseña incorrectos.</p>
+                <button type="submit" class="btn-admin-primario">Ingresar al Panel</button>
+            </form>
+        </div>
+
+        <!-- Pantalla 2: Panel de Gestión -->
+        <div id="vista-panel" class="panel-contenido-completo" hidden>
+            <div class="cabecera-panel">
+                <h2>Panel de Control Green Arqui</h2>
+                <button type="button" id="btn-cerrar-sesion" class="btn-cerrar-sesion">Cerrar sesión</button>
+            </div>
+
+            <!-- Subsección A: Agregar proyectos -->
+            <div class="bloque-panel">
+                <h3>Agregar nuevo proyecto al portafolio</h3>
+                <form id="form-nuevo-proyecto" class="form-panel-grid">
+                    <input type="text" id="proj-titulo" placeholder="Nombre del proyecto" required>
+                    <input type="text" id="proj-categoria" placeholder="Categoría (Ej. Comercial)" required>
+                    <input type="text" id="proj-imagen" placeholder="Ruta imagen (Ej. ./img/proyecto-nuevo.jpg)" required>
+                    <input type="text" id="proj-boton" placeholder="Texto botón (Ej. Hablemos de tu espacio)" required>
+                    <textarea id="proj-descripcion" rows="3" placeholder="Descripción sostenible del proyecto" required></textarea>
+                    <button type="submit" class="btn-admin-primario">Publicar proyecto</button>
+                </form>
+                <div id="lista-proyectos-admin" class="lista-admin-items"></div>
+            </div>
+
+            <!-- Subsección B: Solicitudes de contacto -->
+            <div class="bloque-panel">
+                <h3>Solicitudes de cotización recibidas</h3>
+                <div id="lista-solicitudes-admin" class="lista-admin-items"></div>
+            </div>
+        </div>
+    </main>
+
+    <script src="./JS/admin.js"></script>
+</body>
+</html>

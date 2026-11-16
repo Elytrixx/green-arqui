@@ -2,36 +2,22 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
-    <meta
-        name="description"
-        content="Green Arqui es un estudio de diseño que integra arquitectura, biología y sostenibilidad.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Green Arqui es un estudio de diseño que integra arquitectura, biología y sostenibilidad.">
     <title>Green Arqui</title>
     <link rel="stylesheet" href="./CSS/styles.css">
 </head>
 <body>
     <header>
         <a href="#inicio" aria-label="Ir al inicio">
-            <img
-                src="./img/logo-header.png"
-                alt="Logo de Green Arqui">
+            <img src="./img/logo-header.png" alt="Logo de Green Arqui">
         </a>
         <nav aria-label="Navegación principal">
             <ul>
-                <li>
-                    <a href="#nosotros">Nosotros</a>
-                </li>
-                <li>
-                    <a href="#proyectos">Proyectos</a>
-                </li>
-                <li>
-                    <a href="#servicios">Servicios</a>
-                </li>
-                <li>
-                    <a href="#contacto">Contacto</a>
-                </li>
+                <li><a href="#nosotros">Nosotros</a></li>
+                <li><a href="#proyectos">Proyectos</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#contacto">Contacto</a></li>
             </ul>
         </nav>
     </header>
@@ -85,7 +71,6 @@
                             <path d="M61 49c0-7-4-12-10-12-3 0-6 1-8 4"></path>
                         </svg>
                     </div>
-
                     <h3>Quiénes somos</h3>
                     <p>
                         Somos un estudio de arquitectura comprometido con el diseño sostenible y la experiencia humana. Desarrollamos proyectos que integran funcionalidad y respeto por el medio ambiente, buscando mejorar la calidad de vida de las personas.
@@ -101,7 +86,6 @@
                             <path d="M32 47c-10 0-17-5-19-14 10 0 17 5 19 14"></path>
                         </svg>
                     </div>
-
                     <h3>Nuestra misión</h3>
                     <p>
                         Diseñar proyectos arquitectónicos que combinen innovación, funcionalidad y sostenibilidad, ofreciendo soluciones de alta calidad que generen valor para nuestros clientes y contribuyan al desarrollo de comunidades más responsables con el medio ambiente.
@@ -117,7 +101,6 @@
                             <path d="M32 31c-5-4-9-1-9 3 0 5 5 8 9 11 4-3 9-6 9-11 0-4-4-7-9-3z"></path>
                         </svg>
                     </div>
-
                     <h3>Nuestra historia</h3>
                     <p>
                         Green Arqui nace de la unión entre dos disciplinas que comparten un mismo propósito: construir un futuro mejor y más sostenible.
@@ -283,227 +266,106 @@
                 <address>
                     <p>
                         <strong>Teléfono:</strong>
-                        <a href="tel:+50764170499">
-                            +507 6417-0499
-                        </a>
+                        <a href="tel:+50764170499">+507 6417-0499</a>
                     </p>
-
                     <p>
                         <strong>Correo:</strong>
-                        <a href="mailto:greenarqui07@gmail.com">
-                            greenarqui07@gmail.com
-                        </a>
+                        <a href="mailto:greenarqui07@gmail.com">greenarqui07@gmail.com</a>
                     </p>
                 </address>
             </div>
             
             <form id="form-contacto">
                 <div class="campo-formulario">
-                    <label for="nombre">
-                        Nombre completo
-                    </label>
-                    <input
-                        type="text"
-                        id="nombre"
-                        name="nombre"
-                        placeholder="Escribe tu nombre"
-                        required>
+                    <label for="nombre">Nombre completo</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Escribe tu nombre" required>
                 </div>
 
                 <div class="campo-formulario">
-                    <label for="correo">
-                        Correo electrónico
-                    </label>
-                    <input
-                        type="email"
-                        id="correo"
-                        name="correo"
-                        placeholder="Escribe tu correo electrónico"
-                        required>
+                    <label for="correo">Correo electrónico</label>
+                    <input type="email" id="correo" name="correo" placeholder="Escribe tu correo electrónico" required>
                 </div>
 
                 <div class="campo-formulario">
-                    <label for="telefono">
-                        Número de teléfono
-                    </label>
-                    <input
-                        type="tel"
-                        id="telefono"
-                        name="telefono"
-                        placeholder="Escribe tu número"
-                        required>
+                    <label for="telefono">Número de teléfono</label>
+                    <input type="tel" id="telefono" name="telefono" placeholder="Escribe tu número" required>
                 </div>
 
                 <div class="campo-formulario">
-                    <label for="pais">
-                        País de residencia
-                    </label>
+                    <label for="pais">País de residencia</label>
                     <select id="pais" name="pais" required>
-                        <option value="" selected disabled>
-                            Selecciona tu país
-                        </option>
-                        <option value="panama">
-                            Panamá
-                        </option>
-                        <option value="colombia">
-                            Colombia
-                        </option>
-                        <option value="costa-rica">
-                            Costa Rica
-                        </option>
-                        <option value="otro">
-                            Otro país
-                        </option>
+                        <option value="" selected disabled>Selecciona tu país</option>
+                        <option value="panama">Panamá</option>
+                        <option value="colombia">Colombia</option>
+                        <option value="costa-rica">Costa Rica</option>
+                        <option value="otro">Otro país</option>
                     </select>
                 </div>
 
                 <div class="campo-formulario">
-                    <label for="servicio-interes">
-                        ¿En qué servicio estás interesado?
-                    </label>
-                    <select
-                        id="servicio-interes"
-                        name="servicio"
-                        required>
-                        <option value="" selected disabled>
-                            Selecciona un servicio
-                        </option>
-                        <option value="diseno-arquitectonico">
-                            Diseño arquitectónico sostenible
-                        </option>
-                        <option value="remodelaciones">
-                            Remodelaciones y ampliaciones
-                        </option>
-                        <option value="modelado-3d">
-                            Modelado 3D y renders
-                        </option>
-                        <option value="supervision">
-                            Supervisión y consultoría de proyectos
-                        </option>
-                        <option value="impacto-ambiental">
-                            Evaluación de impacto ambiental
-                        </option>
+                    <label for="servicio-interes">¿En qué servicio estás interesado?</label>
+                    <select id="servicio-interes" name="servicio" required>
+                        <option value="" selected disabled>Selecciona un servicio</option>
+                        <option value="diseno-arquitectonico">Diseño arquitectónico sostenible</option>
+                        <option value="remodelaciones">Remodelaciones y ampliaciones</option>
+                        <option value="modelado-3d">Modelado 3D y renders</option>
+                        <option value="supervision">Supervisión y consultoría de proyectos</option>
+                        <option value="impacto-ambiental">Evaluación de impacto ambiental</option>
                     </select>
                 </div>
 
                 <div class="campo-formulario">
-                    <label for="mensaje">
-                        Cuéntanos sobre tu proyecto
-                    </label>
-                    <textarea
-                        id="mensaje"
-                        name="mensaje"
-                        rows="6"
-                        placeholder="Escribe tu mensaje"
-                        required
-                    ></textarea>
+                    <label for="mensaje">Cuéntanos sobre tu proyecto</label>
+                    <textarea id="mensaje" name="mensaje" rows="6" placeholder="Escribe tu mensaje" required></textarea>
                 </div>
 
-                <button type="submit">
-                    Enviar mensaje
-                </button>
+                <button type="submit">Enviar mensaje</button> 
                 <p id="mensaje-exito" class="mensaje-exito" hidden>
                     ¡Gracias! Hemos recibido tu solicitud. Nuestro equipo se pondrá en contacto contigo pronto.
                 </p>
-            </form>
+            </form> 
         </section>
     </main>
 
-   <footer>
+    <footer>
         <p>
             &copy; 2026 Green Arqui. Todos los derechos reservados. | 
-            <a href="#admin" id="btn-abrir-admin" class="link-admin">Acceso Admin</a>
+            <a href="admin.html" target="_blank" class="link-admin">Acceso Admin</a>
         </p>
     </footer>
 
-<!-- MODAL LOGIN Y PANEL ADMIN -->
-    <div id="modal-admin" class="modal-admin" hidden>
-        <div class="contenido-modal-admin">
-            <button type="button" id="btn-cerrar-admin" class="btn-cerrar-admin">&times;</button>
+    <!-- CHATBOT FLOTANTE CIRCULAR -->
+    <button type="button" id="btn-toggle-ia" class="btn-flotante-ia" aria-label="Abrir asistente de IA">
+        🌿
+    </button>
 
-            <!-- Pantalla 1: Login -->
-            <div id="vista-login">
-                <h2>Acceso Administrativo</h2>
-                <p>Ingresa tus credenciales de Green Arqui para gestionar proyectos y cotizaciones.</p>
-                <form id="form-login">
-                    <div class="campo-formulario">
-                        <label for="admin-usuario">Usuario</label>
-                        <input type="text" id="admin-usuario" placeholder="Ej. admin" required>
-                    </div>
-                    <div class="campo-formulario">
-                        <label for="admin-password">Contraseña</label>
-                        <input type="password" id="admin-password" placeholder="••••••••" required>
-                    </div>
-                    <p id="error-login" class="error-login" hidden>Usuario o contraseña incorrectos.</p>
-                    <button type="submit" class="btn-admin-primario">Ingresar</button>
-                </form>
+    <div id="ventana-ia" class="ventana-ia" hidden>
+        <div class="cabecera-ia">
+            <div>
+                <strong>GreenBot IA</strong>
+                <span>Asesor de Arquitectura y Biología</span>
             </div>
+            <button type="button" id="btn-cerrar-ia" class="btn-cerrar-ia">&times;</button>
+        </div>
 
-            <!-- Pantalla 2: Panel de Gestión -->
-            <div id="vista-panel" hidden>
-                <div class="cabecera-panel">
-                    <h2>Panel de Gestión - Green Arqui</h2>
-                    <button type="button" id="btn-cerrar-sesion" class="btn-cerrar-sesion">Cerrar sesión</button>
-                </div>
-
-                <!-- Subsección A: Agregar nuevo proyecto -->
-                <div class="bloque-panel">
-                    <h3>Agregar nuevo proyecto al portafolio</h3>
-                    <form id="form-nuevo-proyecto" class="form-panel-grid">
-                        <input type="text" id="proj-titulo" placeholder="Nombre del proyecto" required>
-                        <input type="text" id="proj-categoria" placeholder="Categoría (Ej. Comercial)" required>
-                        <input type="text" id="proj-imagen" placeholder="Ruta imagen (Ej. ./img/inicio.jpg)" required>
-                        <input type="text" id="proj-boton" placeholder="Texto botón (Ej. Explora esta idea)" required>
-                        <textarea id="proj-descripcion" rows="3" placeholder="Descripción sostenible del proyecto" required></textarea>
-                        <button type="submit" class="btn-admin-primario">Publicar proyecto</button>
-                    </form>
-                    <div id="lista-proyectos-admin" class="lista-admin-items"></div>
-                </div>
-
-                <!-- Subsección B: Solicitudes de contacto recibidas -->
-                <div class="bloque-panel">
-                    <h3>Solicitudes de cotización recibidas</h3>
-                    <div id="lista-solicitudes-admin" class="lista-admin-items"></div>
-                </div>
+        <div id="mensajes-ia" class="mensajes-ia">
+            <div class="burbuja-ia bot">
+                ¡Hola! Soy <strong>GreenBot</strong>, el asistente inteligente de Green Arqui. Cuéntame qué tipo de espacio quieres diseñar, remodelar o evaluar (ej. vivienda, local comercial, terreno natural) y te recomendaré la mejor estrategia sostenible.
             </div>
         </div>
-    </div>
 
-<!-- ASISTENTE DE IA SOSTENIBLE -->
-    <div class="widget-ia">
-        <button type="button" id="btn-toggle-ia" class="btn-flotante-ia" aria-label="Abrir asistente de IA">
-            🌿 Asesor IA
-        </button>
-
-        <div id="ventana-ia" class="ventana-ia" hidden>
-            <div class="cabecera-ia">
-                <div>
-                    <strong>GreenBot IA</strong>
-                    <span>Asesor de Arquitectura y Biología</span>
-                </div>
-                <button type="button" id="btn-cerrar-ia" class="btn-cerrar-ia">&times;</button>
-            </div>
-
-            <div id="mensajes-ia" class="mensajes-ia">
-                <div class="burbuja-ia bot">
-                    ¡Hola! Soy <strong>GreenBot</strong>, el asistente inteligente de Green Arqui. Cuéntame qué tipo de espacio quieres diseñar, remodelar o evaluar (ej. vivienda, local comercial, terreno natural) y te recomendaré la mejor estrategia sostenible.
-                </div>
-            </div>
-
-            <div class="sugerencias-ia">
-                <button type="button" class="chip-ia" data-pregunta="Quiero diseñar una casa sostenible">🏠 Casa sostenible</button>
-                <button type="button" class="chip-ia" data-pregunta="Tengo un local comercial o restaurante">🏢 Local comercial</button>
-                <button type="button" class="chip-ia" data-pregunta="Necesito evaluar el impacto ambiental de un terreno">🌱 Impacto ambiental</button>
-            </div>
-
-            <form id="form-ia" class="form-ia">
-                <input type="text" id="input-ia" placeholder="Escribe tu consulta aquí..." required>
-                <button type="submit">Enviar</button>
-            </form>
+        <div class="sugerencias-ia">
+            <button type="button" class="chip-ia" data-pregunta="Quiero diseñar una casa sostenible">🏠 Casa sostenible</button>
+            <button type="button" class="chip-ia" data-pregunta="Tengo un local comercial o restaurante">🏢 Local comercial</button>
+            <button type="button" class="chip-ia" data-pregunta="Necesito evaluar el impacto ambiental de un terreno">🌱 Impacto ambiental</button>
         </div>
+
+        <form id="form-ia" class="form-ia">
+            <input type="text" id="input-ia" placeholder="Escribe tu consulta aquí..." required>
+            <button type="submit">Enviar</button>
+        </form>
     </div>
 
-<script src="./JS/app.js"></script>
-
+    <script src="./JS/app.js"></script>
 </body>
 </html>

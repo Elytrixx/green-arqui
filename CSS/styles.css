@@ -896,15 +896,11 @@ footer {
 /* ASISTENTE DE IA FLOTANTE      */
 /* ============================= */
 
-.widget-ia {
+.btn-flotante-ia {
   position: fixed;
   bottom: 25px;
   right: 25px;
   z-index: 9999;
-  font-family: Arial, sans-serif;
-}
-
-.btn-flotante-ia {
   background: linear-gradient(135deg, #16803a, #126b31);
   color: #ffffff;
   border: none;
@@ -926,17 +922,18 @@ footer {
 }
 
 .ventana-ia {
-  position: absolute;
-  bottom: 70px;
-  right: 0;
+  position: fixed;
+  bottom: 90px;
+  right: 25px;
   width: 380px;
   max-width: calc(100vw - 40px);
   height: 500px;
-  max-height: calc(80vh - 80px);
+  max-height: calc(80vh - 40px);
   background-color: #ffffff;
   border-radius: 14px;
   box-shadow: 0 14px 35px rgba(0, 0, 0, 0.2);
   border: 1px solid #d8e6d3;
+  z-index: 10000;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -1113,5 +1110,134 @@ footer {
 
 .form-ia button:hover {
   background-color: #126b31;
+}
+/* ============================= */
+/* CHATBOT CIRCULAR FLOTANTE     */
+/* ============================= */
+
+.btn-flotante-ia {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  z-index: 9999;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #16803a, #126b31);
+  color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  font-size: 26px;
+  cursor: pointer;
+  box-shadow: 0 6px 22px rgba(22, 128, 58, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.btn-flotante-ia:hover {
+  transform: scale(1.1);
+  box-shadow: 0 10px 28px rgba(22, 128, 58, 0.5);
+}
+
+.ventana-ia {
+  position: fixed;
+  bottom: 95px;
+  right: 25px;
+  width: 380px;
+  max-width: calc(100vw - 40px);
+  height: 500px;
+  max-height: calc(80vh - 40px);
+  background-color: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.2);
+  border: 1px solid #d8e6d3;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: abrirChat 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes abrirChat {
+  from {
+    opacity: 0;
+    transform: translateY(15px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.ventana-ia[hidden] {
+  display: none;
+}
+
+/* ============================= */
+/* ESTILOS PÁGINA ADMIN SEPARADA */
+/* ============================= */
+
+.cuerpo-admin {
+  background-color: #f4f8f2;
+  font-family: Arial, sans-serif;
+  color: #111111;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header-admin {
+  background-color: #ffffff;
+  padding: 15px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e4ece1;
+}
+
+.header-admin img {
+  height: 50px;
+}
+
+.header-admin h1 {
+  color: #328700;
+  font-size: 22px;
+}
+
+.contenedor-admin-pagina {
+  max-width: 900px;
+  margin: 40px auto;
+  width: 90%;
+  flex-grow: 1;
+}
+
+.tarjeta-admin-login {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  max-width: 450px;
+  margin: 0 auto;
+  border: 1px solid #e4ece1;
+}
+
+.tarjeta-admin-login h2 {
+  color: #328700;
+  margin-bottom: 10px;
+}
+
+.tarjeta-admin-login p {
+  font-size: 14px;
+  color: #555555;
+  margin-bottom: 20px;
+}
+
+.panel-contenido-completo {
+  background-color: #ffffff;
+  padding: 35px;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e4ece1;
 }
 }
