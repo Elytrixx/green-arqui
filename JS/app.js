@@ -201,3 +201,95 @@ window.eliminarProyecto = function (id) {
 
 // Cargar proyectos extra al abrir la página
 renderizarProyectosExtra();
+
+// ==========================================
+// 5. ASISTENTE DE IA SOSTENIBLE (GREENBOT)
+// ==========================================
+const btnToggleIa = document.getElementById("btn-toggle-ia");
+const btnCerrarIa = document.getElementById("btn-cerrar-ia");
+const ventanaIa = document.getElementById("ventana-ia");
+const mensajesIa = document.getElementById("mensajes-ia");
+const formIa = document.getElementById("form-ia");
+const inputIa = document.getElementById("input-ia");
+const chipsIa = document.querySelectorAll(".chip-ia");
+
+btnToggleIa.addEventListener("click", () => {
+  ventanaIa.hidden = false;
+  btnToggleIa.hidden = true;
+});
+
+btnCerrarIa.addEventListener("click", () => {
+  ventanaIa.hidden = true;
+  btnToggleIa.hidden = false;
+});
+
+chipsIa.forEach((chip) => {
+  chip.addEventListener("click", () => {
+    const pregunta = chip.getAttribute("data-pregunta");
+    procesarConsultaIa(pregunta);
+  });
+});
+
+formIa.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const texto = inputIa.value.trim();
+  if (!texto) return;
+  inputIa.value = "";
+  procesarConsultaIa(texto);
+});
+
+function agregarBurbuja(html, tipo) {
+  const div = document.createElement("div");
+  div.className = `burbuja-ia ${tipo}`;
+  div.innerHTML = html;
+  mensajesIa.appendChild(div);
+  mensajesIa.scrollTop = mensajesIa.scrollHeight;
+}
+
+function procesarConsultaIa(textoUsuario) {
+  agregarBurbuja(textoUsuario, "usuario");
+
+  const consulta = textoUsuario.toLowerCase();
+  let respuesta = "";
+  let servicioSugerido = "";
+
+  if (consulta.includes("casa") || consulta.includes("vivienda") || consulta.includes("residencia") || consulta.includes("construir")) {
+    servicioSugerido = "diseno-arquitectonico";
+    respuesta = `Para un proyecto residencial, nuestro enfoque combina <strong>ventilación cruzada pasiva, captación pluvial y vegetación nativa</strong> (como aplicamos en <em>Terravia Residences</em>).<br>Te recomendamos el servicio de <strong>Diseño arquitectónico sostenible</strong>.`;
+  } else if (consulta.includes("local") || consulta.includes("comercial") || consulta.includes("restaurante") || consulta.includes("cocina") || consulta.includes("hostal") || consulta.includes("turismo")) {
+    servicioSugerido = "diseno-arquitectonico";
+    respuesta = `En espacios comerciales o turísticos (como <em>Papa-razzi</em> o <em>The Lost City</em>), optimizamos la <strong>eficiencia energética, el flujo operativo y el bajo impacto ecológico</strong>.<br>Podemos ayudarte con <strong>Diseño arquitectónico sostenible</strong> o <strong>Modelado 3D y renders</strong>.`;
+  } else if (consulta.includes("remodelar") || consulta.includes("ampliar") || consulta.includes("remodelacion") || consulta.includes("adaptar")) {
+    servicioSugerido = "remodelaciones";
+    respuesta = `Reutilizar estructuras existentes reduce enormemente la huella de carbono. Evaluamos iluminación natural y materiales ecoeficientes.<br>Tu opción ideal es <strong>Remodelaciones y ampliaciones</strong>.`;
+  } else if (consulta.includes("impacto") || consulta.includes("ambiental") || consulta.includes("terreno") || consulta.includes("biologia") || consulta.includes("flora") || consulta.includes("fauna")) {
+    servicioSugerido = "impacto-ambiental";
+    respuesta = `Desde nuestra área de Biología analizamos la <strong>biodiversidad local, suelos y mitigación de riesgos ecológicos</strong> antes de intervenir el terreno.<br>Te recomendamos una <strong>Evaluación de impacto ambiental</strong>.`;
+  } else if (consulta.includes("3d") || consulta.includes("render") || consulta.includes("visualizar") || consulta.includes("plano")) {
+    servicioSugerido = "modelado-3d";
+    respuesta = `Visualizar tu espacio antes de construir evita desperdicios de material y mejora la toma de decisiones.<br>Te sugerimos nuestro servicio de <strong>Modelado 3D y renders</strong>.`;
+  } else if (consulta.includes("precio") || consulta.includes("costo") || consulta.includes("cotizacion") || consulta.includes("presupuesto")) {
+    servicioSugerido = "supervision";
+    respuesta = `Cada diseño se adapta a las condiciones bioclimáticas y escala de tu terreno. Puedes enviarnos los detalles de tu idea en la sección de Contacto para prepararte una propuesta a medida.`;
+  } else {
+    servicioSugerido = "supervision";
+    respuesta = `En <strong>Green Arqui</strong> unimos arquitectura y biología para crear espacios funcionales en armonía con la naturaleza. Cuéntanos si tu proyecto es residencial, comercial o una evaluación ambiental para orientarte mejor.`;
+  }
+
+  setTimeout(() => {
+    const botonCotizar = servicioSugerido
+      ? `<br><button type="button" class="btn-accion-ia" onclick="irACotizarConServicio('${servicioSugerido}')">Cotizar este servicio →</button>`
+      : "";
+    agregarBurbuja(respuesta + botonCotizar, "bot");
+  }, 450);
+}
+
+window.irACotizarConServicio = function (valorServicio) {
+  ventanaIa.hidden = true;
+  btnToggleIa.hidden = false;
+  const selectServicio = document.getElementById("servicio-interes");
+  if (selectServicio) {
+    selectServicio.value = valorServicio;
+  }
+  document.getElementById("contacto").scrollIntoView({ behavior: "smooth" });
+};

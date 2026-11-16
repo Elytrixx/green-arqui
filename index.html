@@ -468,6 +468,41 @@
             </div>
         </div>
     </div>
+
+<!-- ASISTENTE DE IA SOSTENIBLE -->
+    <div class="widget-ia">
+        <button type="button" id="btn-toggle-ia" class="btn-flotante-ia" aria-label="Abrir asistente de IA">
+            🌿 Asesor IA
+        </button>
+
+        <div id="ventana-ia" class="ventana-ia" hidden>
+            <div class="cabecera-ia">
+                <div>
+                    <strong>GreenBot IA</strong>
+                    <span>Asesor de Arquitectura y Biología</span>
+                </div>
+                <button type="button" id="btn-cerrar-ia" class="btn-cerrar-ia">&times;</button>
+            </div>
+
+            <div id="mensajes-ia" class="mensajes-ia">
+                <div class="burbuja-ia bot">
+                    ¡Hola! Soy <strong>GreenBot</strong>, el asistente inteligente de Green Arqui. Cuéntame qué tipo de espacio quieres diseñar, remodelar o evaluar (ej. vivienda, local comercial, terreno natural) y te recomendaré la mejor estrategia sostenible.
+                </div>
+            </div>
+
+            <div class="sugerencias-ia">
+                <button type="button" class="chip-ia" data-pregunta="Quiero diseñar una casa sostenible">🏠 Casa sostenible</button>
+                <button type="button" class="chip-ia" data-pregunta="Tengo un local comercial o restaurante">🏢 Local comercial</button>
+                <button type="button" class="chip-ia" data-pregunta="Necesito evaluar el impacto ambiental de un terreno">🌱 Impacto ambiental</button>
+            </div>
+
+            <form id="form-ia" class="form-ia">
+                <input type="text" id="input-ia" placeholder="Escribe tu consulta aquí..." required>
+                <button type="submit">Enviar</button>
+            </form>
+        </div>
+    </div>
+
 <script src="./JS/app.js"></script>
 
 </body>
