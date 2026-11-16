@@ -334,10 +334,8 @@
         </p>
     </footer>
 
-    <!-- CHATBOT FLOTANTE CIRCULAR -->
-    <button type="button" id="btn-toggle-ia" class="btn-flotante-ia" aria-label="Abrir asistente de IA">
-        🌿
-    </button>
+<!-- CHATBOT FLOTANTE CIRCULAR -->
+    <button type="button" id="btn-toggle-ia" class="btn-flotante-ia" aria-label="Abrir asistente de IA">🌿</button>
 
     <div id="ventana-ia" class="ventana-ia" hidden>
         <div class="cabecera-ia">
@@ -350,7 +348,7 @@
 
         <div id="mensajes-ia" class="mensajes-ia">
             <div class="burbuja-ia bot">
-                ¡Hola! Soy <strong>GreenBot</strong>, el asistente inteligente de Green Arqui. Cuéntame qué tipo de espacio quieres diseñar, remodelar o evaluar (ej. vivienda, local comercial, terreno natural) y te recomendaré la mejor estrategia sostenible.
+                ¡Hola! Soy <strong>GreenBot</strong>, el asistente inteligente de Green Arqui. Cuéntame qué tipo de espacio quieres diseñar, remodelar o evaluar y te recomendaré la mejor estrategia sostenible.
             </div>
         </div>
 
@@ -365,6 +363,75 @@
             <button type="submit">Enviar</button>
         </form>
     </div>
+
+    <!-- ESTILOS DIRECTOS DEL CHATBOT -->
+    <style>
+      #btn-toggle-ia {
+        position: fixed !important;
+        bottom: 25px !important;
+        right: 25px !important;
+        z-index: 99999 !important;
+        width: 60px !important;
+        height: 60px !important;
+        background: linear-gradient(135deg, #16803a, #126b31) !important;
+        color: #ffffff !important;
+        border: 2px solid #ffffff !important;
+        border-radius: 50% !important;
+        font-size: 26px !important;
+        cursor: pointer !important;
+        box-shadow: 0 6px 22px rgba(22, 128, 58, 0.5) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        transition: transform 0.2s ease !important;
+      }
+      #btn-toggle-ia:hover {
+        transform: scale(1.1) !important;
+      }
+      #ventana-ia {
+        position: fixed !important;
+        bottom: 95px !important;
+        right: 25px !important;
+        width: 370px !important;
+        max-width: calc(100vw - 40px) !important;
+        height: 480px !important;
+        max-height: calc(80vh - 40px) !important;
+        background-color: #ffffff !important;
+        border-radius: 14px !important;
+        box-shadow: 0 14px 35px rgba(0, 0, 0, 0.25) !important;
+        border: 1px solid #d8e6d3 !important;
+        z-index: 100000 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        overflow: hidden !important;
+        font-family: Arial, sans-serif !important;
+      }
+      #ventana-ia[hidden] {
+        display: none !important;
+      }
+      .cabecera-ia {
+        background: linear-gradient(135deg, #328700, #225a00) !important;
+        color: #ffffff !important;
+        padding: 14px 16px !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+      }
+      .cabecera-ia strong { font-size: 15px !important; display: block !important; }
+      .cabecera-ia span { font-size: 11px !important; opacity: 0.9 !important; }
+      .btn-cerrar-ia { background: none !important; border: none !important; color: #ffffff !important; font-size: 24px !important; cursor: pointer !important; }
+      .mensajes-ia { padding: 14px !important; flex-grow: 1 !important; overflow-y: auto !important; display: flex !important; flex-direction: column !important; gap: 10px !important; background-color: #f4f8f2 !important; }
+      .burbuja-ia { padding: 10px 13px !important; border-radius: 8px !important; font-size: 13.5px !important; line-height: 1.45 !important; max-width: 85% !important; }
+      .burbuja-ia.bot { background-color: #ffffff !important; color: #1b2e16 !important; align-self: flex-start !important; border: 1px solid #e4ede1 !important; }
+      .burbuja-ia.usuario { background-color: #16803a !important; color: #ffffff !important; align-self: flex-end !important; }
+      .burbuja-ia.escribiendo { font-style: italic !important; color: #666 !important; background: #fff !important; }
+      .btn-accion-ia { display: inline-block !important; margin-top: 8px !important; padding: 6px 12px !important; background-color: #d6a900 !important; color: #ffffff !important; font-size: 12px !important; font-weight: bold !important; border-radius: 5px !important; cursor: pointer !important; border: none !important; }
+      .sugerencias-ia { padding: 8px 10px !important; display: flex !important; gap: 6px !important; overflow-x: auto !important; background-color: #ffffff !important; border-top: 1px solid #eaf2e6 !important; }
+      .chip-ia { background-color: #eaf5e6 !important; color: #235c02 !important; border: 1px solid #c5dec0 !important; border-radius: 20px !important; padding: 5px 10px !important; font-size: 11px !important; white-space: nowrap !important; cursor: pointer !important; }
+      .form-ia { display: flex !important; background-color: #ffffff !important; border-top: 1px solid #d8e6d3 !important; padding: 8px !important; gap: 8px !important; }
+      .form-ia input { flex-grow: 1 !important; border: 1px solid #d8d8d8 !important; border-radius: 6px !important; padding: 8px 10px !important; font-size: 13px !important; outline: none !important; }
+      .form-ia button { background-color: #16803a !important; color: #ffffff !important; border: none !important; border-radius: 6px !important; padding: 0 14px !important; font-weight: bold !important; cursor: pointer !important; }
+    </style>
 
     <script src="./JS/app.js"></script>
 </body>
