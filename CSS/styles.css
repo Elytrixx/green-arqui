@@ -898,40 +898,60 @@ footer {
 
 .widget-ia {
   position: fixed;
-  bottom: 22px;
-  right: 22px;
-  z-index: 1500;
+  bottom: 25px;
+  right: 25px;
+  z-index: 9999;
   font-family: Arial, sans-serif;
 }
 
 .btn-flotante-ia {
-  background-color: #16803a;
+  background: linear-gradient(135deg, #16803a, #126b31);
   color: #ffffff;
-  border: 2px solid #ffffff;
-  padding: 12px 18px;
-  border-radius: 30px;
+  border: none;
+  padding: 14px 22px;
+  border-radius: 50px;
   font-size: 15px;
   font-weight: bold;
   cursor: pointer;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
-  transition: transform 0.2s ease, background-color 0.2s ease;
+  box-shadow: 0 8px 24px rgba(22, 128, 58, 0.35);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .btn-flotante-ia:hover {
-  background-color: #126b31;
-  transform: scale(1.04);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(22, 128, 58, 0.45);
 }
 
 .ventana-ia {
-  width: 350px;
-  max-width: calc(100vw - 32px);
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+  width: 380px;
+  max-width: calc(100vw - 40px);
+  height: 500px;
+  max-height: calc(80vh - 80px);
   background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  border-radius: 14px;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.2);
   border: 1px solid #d8e6d3;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  animation: abrirChat 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes abrirChat {
+  from {
+    opacity: 0;
+    transform: translateY(15px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .ventana-ia[hidden] {
@@ -939,9 +959,9 @@ footer {
 }
 
 .cabecera-ia {
-  background-color: #328700;
+  background: linear-gradient(135deg, #328700, #225a00);
   color: #ffffff;
-  padding: 14px 16px;
+  padding: 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -950,44 +970,54 @@ footer {
 .cabecera-ia strong {
   display: block;
   font-size: 16px;
+  font-family: "Garet", Arial, sans-serif;
 }
 
 .cabecera-ia span {
   font-size: 12px;
-  opacity: 0.9;
+  opacity: 0.85;
 }
 
 .btn-cerrar-ia {
   background: none;
   border: none;
   color: #ffffff;
-  font-size: 24px;
+  font-size: 26px;
   cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.btn-cerrar-ia:hover {
+  opacity: 1;
 }
 
 .mensajes-ia {
-  padding: 14px;
-  height: 260px;
+  padding: 16px;
+  flex-grow: 1;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  background-color: #f9fbf8;
+  gap: 12px;
+  background-color: #f4f8f2;
 }
 
 .burbuja-ia {
-  padding: 10px 13px;
-  border-radius: 8px;
-  font-size: 13.5px;
-  line-height: 1.45;
-  max-width: 88%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+  max-width: 85%;
+  word-wrap: break-word;
 }
 
 .burbuja-ia.bot {
-  background-color: #e8f5e3;
+  background-color: #ffffff;
   color: #1b2e16;
   align-self: flex-start;
   border-bottom-left-radius: 2px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
+  border: 1px solid #e4ede1;
 }
 
 .burbuja-ia.usuario {
@@ -995,65 +1025,93 @@ footer {
   color: #ffffff;
   align-self: flex-end;
   border-bottom-right-radius: 2px;
+  box-shadow: 0 2px 5px rgba(22, 128, 58, 0.15);
+}
+
+.burbuja-ia.escribiendo {
+  font-style: italic;
+  color: #555555;
+  background-color: #ffffff;
 }
 
 .btn-accion-ia {
   display: inline-block;
-  margin-top: 8px;
-  padding: 6px 10px;
+  margin-top: 10px;
+  padding: 8px 14px;
   background-color: #d6a900;
   color: #ffffff;
   text-decoration: none;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: bold;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
   border: none;
+  transition: background-color 0.2s;
+}
+
+.btn-accion-ia:hover {
+  background-color: #b58e00;
 }
 
 .sugerencias-ia {
-  padding: 8px 10px;
+  padding: 10px 12px;
   display: flex;
-  gap: 6px;
+  gap: 8px;
   overflow-x: auto;
   background-color: #ffffff;
-  border-top: 1px solid #eeeeee;
+  border-top: 1px solid #eaf2e6;
 }
 
 .chip-ia {
-  background-color: #f0f7ed;
-  color: #2c6e05;
+  background-color: #eaf5e6;
+  color: #235c02;
   border: 1px solid #c5dec0;
-  border-radius: 15px;
-  padding: 5px 10px;
-  font-size: 11.5px;
+  border-radius: 20px;
+  padding: 6px 12px;
+  font-size: 12px;
   white-space: nowrap;
   cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
 }
 
 .chip-ia:hover {
-  background-color: #dff0d8;
+  background-color: #d6ecd0;
 }
 
 .form-ia {
   display: flex;
-  border-top: 1px solid #dddddd;
+  background-color: #ffffff;
+  border-top: 1px solid #d8e6d3;
+  padding: 8px;
+  gap: 8px;
 }
 
 .form-ia input {
   flex-grow: 1;
-  border: none;
-  padding: 11px 12px;
-  font-size: 13.5px;
+  border: 1px solid #d8d8d8;
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-size: 14px;
   outline: none;
+}
+
+.form-ia input:focus {
+  border-color: #16803a;
 }
 
 .form-ia button {
   background-color: #16803a;
   color: #ffffff;
   border: none;
+  border-radius: 6px;
   padding: 0 16px;
   font-weight: bold;
   cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.form-ia button:hover {
+  background-color: #126b31;
 }
 }

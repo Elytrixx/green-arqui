@@ -203,7 +203,7 @@ window.eliminarProyecto = function (id) {
 renderizarProyectosExtra();
 
 // ==========================================
-// 5. ASISTENTE DE IA SOSTENIBLE (GREENBOT)
+// 5. ASISTENTE DE IA SOSTENIBLE (GREENBOT) - MEJORADO
 // ==========================================
 const btnToggleIa = document.getElementById("btn-toggle-ia");
 const btnCerrarIa = document.getElementById("btn-cerrar-ia");
@@ -244,44 +244,51 @@ function agregarBurbuja(html, tipo) {
   div.innerHTML = html;
   mensajesIa.appendChild(div);
   mensajesIa.scrollTop = mensajesIa.scrollHeight;
+  return div;
 }
 
 function procesarConsultaIa(textoUsuario) {
   agregarBurbuja(textoUsuario, "usuario");
 
+  // Indicador de escritura para dar sensación de IA real
+  const burbujaEscribiendo = agregarBurbuja("GreenBot está pensando...", "bot escribiendo");
+
   const consulta = textoUsuario.toLowerCase();
   let respuesta = "";
   let servicioSugerido = "";
 
-  if (consulta.includes("casa") || consulta.includes("vivienda") || consulta.includes("residencia") || consulta.includes("construir")) {
-    servicioSugerido = "diseno-arquitectonico";
-    respuesta = `Para un proyecto residencial, nuestro enfoque combina <strong>ventilación cruzada pasiva, captación pluvial y vegetación nativa</strong> (como aplicamos en <em>Terravia Residences</em>).<br>Te recomendamos el servicio de <strong>Diseño arquitectónico sostenible</strong>.`;
-  } else if (consulta.includes("local") || consulta.includes("comercial") || consulta.includes("restaurante") || consulta.includes("cocina") || consulta.includes("hostal") || consulta.includes("turismo")) {
-    servicioSugerido = "diseno-arquitectonico";
-    respuesta = `En espacios comerciales o turísticos (como <em>Papa-razzi</em> o <em>The Lost City</em>), optimizamos la <strong>eficiencia energética, el flujo operativo y el bajo impacto ecológico</strong>.<br>Podemos ayudarte con <strong>Diseño arquitectónico sostenible</strong> o <strong>Modelado 3D y renders</strong>.`;
-  } else if (consulta.includes("remodelar") || consulta.includes("ampliar") || consulta.includes("remodelacion") || consulta.includes("adaptar")) {
-    servicioSugerido = "remodelaciones";
-    respuesta = `Reutilizar estructuras existentes reduce enormemente la huella de carbono. Evaluamos iluminación natural y materiales ecoeficientes.<br>Tu opción ideal es <strong>Remodelaciones y ampliaciones</strong>.`;
-  } else if (consulta.includes("impacto") || consulta.includes("ambiental") || consulta.includes("terreno") || consulta.includes("biologia") || consulta.includes("flora") || consulta.includes("fauna")) {
-    servicioSugerido = "impacto-ambiental";
-    respuesta = `Desde nuestra área de Biología analizamos la <strong>biodiversidad local, suelos y mitigación de riesgos ecológicos</strong> antes de intervenir el terreno.<br>Te recomendamos una <strong>Evaluación de impacto ambiental</strong>.`;
-  } else if (consulta.includes("3d") || consulta.includes("render") || consulta.includes("visualizar") || consulta.includes("plano")) {
-    servicioSugerido = "modelado-3d";
-    respuesta = `Visualizar tu espacio antes de construir evita desperdicios de material y mejora la toma de decisiones.<br>Te sugerimos nuestro servicio de <strong>Modelado 3D y renders</strong>.`;
-  } else if (consulta.includes("precio") || consulta.includes("costo") || consulta.includes("cotizacion") || consulta.includes("presupuesto")) {
-    servicioSugerido = "supervision";
-    respuesta = `Cada diseño se adapta a las condiciones bioclimáticas y escala de tu terreno. Puedes enviarnos los detalles de tu idea en la sección de Contacto para prepararte una propuesta a medida.`;
-  } else {
-    servicioSugerido = "supervision";
-    respuesta = `En <strong>Green Arqui</strong> unimos arquitectura y biología para crear espacios funcionales en armonía con la naturaleza. Cuéntanos si tu proyecto es residencial, comercial o una evaluación ambiental para orientarte mejor.`;
-  }
-
   setTimeout(() => {
+    mensajesIa.removeChild(burbujaEscribiendo);
+
+    if (consulta.includes("casa") || consulta.includes("vivienda") || consulta.includes("residencia") || consulta.includes("construir") || consulta.includes("hogar") || consulta.includes("edificio")) {
+      servicioSugerido = "diseno-arquitectonico";
+      respuesta = `Para proyectos residenciales o de gran escala, integramos <strong>ventilación cruzada pasiva, confort térmico y vegetación nativa</strong> (como en <em>Terravia Residences</em>).<br>Te sugerimos explorar nuestro servicio principal de <strong>Diseño arquitectónico sostenible</strong>.`;
+    } else if (consulta.includes("local") || consulta.includes("comercial") || consulta.includes("restaurante") || consulta.includes("cocina") || consulta.includes("hostal") || consulta.includes("turismo") || consulta.includes("negocio")) {
+      servicioSugerido = "diseno-arquitectonico";
+      respuesta = `En espacios comerciales o de hospitalidad (como <em>Papa-razzi</em> o <em>The Lost City</em>), optimizamos la <strong>eficiencia energética, flujos operativos y materiales de bajo impacto</strong>.<br>Te recomendamos el servicio de <strong>Diseño arquitectónico sostenible</strong>.`;
+    } else if (consulta.includes("remodelar") || consulta.includes("ampliar") || consulta.includes("remodelacion") || consulta.includes("cambiar") || consulta.includes("espacio existente")) {
+      servicioSugerido = "remodelaciones";
+      respuesta = `Reutilizar y adaptar estructuras existentes reduce significativamente la huella de carbono y aprovecha mejor los recursos disponibles.<br>Te recomendamos el servicio de <strong>Remodelaciones y ampliaciones</strong>.`;
+    } else if (consulta.includes("impacto") || consulta.includes("ambiental") || consulta.includes("terreno") || consulta.includes("biologia") || consulta.includes("flora") || consulta.includes("fauna") || consulta.includes("suelo")) {
+      servicioSugerido = "impacto-ambiental";
+      respuesta = `Desde nuestra área de Biología realizamos análisis detallados sobre la <strong>biodiversidad local, topografía y mitigación ecológica</strong> antes de intervenir cualquier sitio.<br>Te recomendamos una <strong>Evaluación de impacto ambiental</strong>.`;
+    } else if (consulta.includes("3d") || consulta.includes("render") || consulta.includes("visualizar") || consulta.includes("plano") || consulta.includes("imagen") || consulta.includes("diseno")) {
+      servicioSugerido = "modelado-3d";
+      respuesta = `Crear representaciones digitales permite anticipar la distribución espacial, iluminación y materialidad antes de la construcción.<br>Te recomendamos el servicio de <strong>Modelado 3D y renders</strong>.`;
+    } else if (consulta.includes("precio") || consulta.includes("costo") || consulta.includes("cotizacion") || consulta.includes("presupuesto") || consulta.includes("valor")) {
+      servicioSugerido = "supervision";
+      respuesta = `Los costos se calculan según la escala y requerimientos bioclimáticos de tu terreno. Puedes dejarnos los detalles en nuestra sección de contacto para enviarte una cotización formal.`;
+    } else {
+      servicioSugerido = "supervision";
+      respuesta = `En <strong>Green Arqui</strong> unimos arquitectura y biología para crear espacios en armonía con el entorno. Cuéntanos si tu proyecto es residencial, comercial, de remodelación o si requieres una evaluación de terreno.`;
+    }
+
     const botonCotizar = servicioSugerido
       ? `<br><button type="button" class="btn-accion-ia" onclick="irACotizarConServicio('${servicioSugerido}')">Cotizar este servicio →</button>`
       : "";
+    
     agregarBurbuja(respuesta + botonCotizar, "bot");
-  }, 450);
+  }, 800);
 }
 
 window.irACotizarConServicio = function (valorServicio) {
