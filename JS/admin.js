@@ -1,116 +1,510 @@
+
 // ==========================================
-// GESTIÓN EXCLUSIVA DE ADMIN (admin.html)
+// GREEN ARQUI - PANEL ADMINISTRATIVO
+// Firebase Authentication + Cloud Firestore
 // ==========================================
+
+import { auth, db } from "./firebase.js";
+
+import {
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+import {
+  collection,
+  addDoc,
+  getDocs,
+  deleteDoc,
+  doc,
+  query,
+  orderBy,
+  onSnapshot
+} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+// ==========================================
+// 1. CONFIGURACIÓN ADMINISTRATIVA
+// ==========================================
+
+
+const ADMIN_UID = "z8hIrDbkUsTfS3tG0NlWmdi0CgN2";
+
+// Colecciones de Firestore
+const COLECCION_PROYECTOS = "proyectos";
+const COLECCION_SOLICITUDES = "solicitudes";
+
+// ==========================================
+// 2. ELEMENTOS HTML
+// ==========================================
+
 const vistaLogin = document.getElementById("vista-login");
 const vistaPanel = document.getElementById("vista-panel");
+
 const formLogin = document.getElementById("form-login");
 const errorLogin = document.getElementById("error-login");
+
 const btnCerrarSesion = document.getElementById("btn-cerrar-sesion");
 
-// Usuarios permitidos (insensible a mayúsculas/minúsculas)
-const USUARIOS_VALIDOS = ["admin", "glenma", "justin"];
-const ADMIN_PASS = "greenarqui2026";
+const formNuevoProyecto = document.getElementById("form-nuevo-proyecto");
 
-function verificarSesion() {
-  if (sessionStorage.getItem("admin_logueado") === "true") {
-    vistaLogin.hidden = true;
-    vistaPanel.hidden = false;
-    cargarSolicitudesAdmin();
-    cargarProyectosAdmin();
-  } else {
-    vistaLogin.hidden = false;
-    vistaPanel.hidden = true;
-  }
+const listaProyectos = document.getElementById("lista-proyectos-admin");
+const listaSolicitudes = document.getElementById("lista-solicitudes-admin");
+
+// Referencias a las suscripciones de Firestore
+let cancelarProyectos = null;
+let cancelarSolicitudes = null;
+
+// ==========================================
+// 3. FUNCIONES AUXILIARES
+// ==========================================
+
+function mostrarError(mensaje) {
+  if (!errorLogin) return;
+
+  errorLogin.textContent = mensaje;
+  errorLogin.hidden = false;
 }
 
-formLogin.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const userInput = document.getElementById("admin-usuario").value.trim().toLowerCase();
-  const passInput = document.getElementById("admin-password").value;
+function ocultarError() {
+  if (!errorLogin) return;
 
-  if (USUARIOS_VALIDOS.includes(userInput) && passInput === ADMIN_PASS) {
-    sessionStorage.setItem("admin_logueado", "true");
-    errorLogin.hidden = true;
-    formLogin.reset();
-    verificarSesion();
+  errorLogin.hidden = true;
+}
+
+function escaparHTML(valor) {
+  return String(valor ?? "").replace(/[&<>"']/g, caracter => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#039;"
+  })[caracter]);
+}
+
+function mostrarLogin() {
+  vistaLogin.hidden = false;
+  vistaPanel.hidden = true;
+}
+
+function mostrarPanel() {
+  vistaLogin.hidden = true;
+  vistaPanel.hidden = false;
+}
+
+// ==========================================
+// 4. CONTROL DE SESIÓN CON FIREBASE
+// ==========================================
+
+onAuthStateChanged(auth, async (usuario) => {
+
+  if (usuario && usuario.uid === ADMIN_UID) {
+
+    mostrarPanel();
+    ocultarError();
+
+    cargarProyectosAdmin();
+    cargarSolicitudesAdmin();
+
   } else {
-    errorLogin.hidden = false;
+
+    detenerActualizaciones();
+
+    mostrarLogin();
+
+    // Si existe una sesión de otro usuario,
+    // se cierra para impedir el acceso al panel.
+    if (usuario) {
+      await signOut(auth);
+      mostrarError("Esta cuenta no tiene permisos administrativos.");
+    }
   }
+
 });
 
-btnCerrarSesion.addEventListener("click", () => {
-  sessionStorage.removeItem("admin_logueado");
-  verificarSesion();
-});
+// ==========================================
+// 5. INICIAR SESIÓN
+// ==========================================
 
-function cargarSolicitudesAdmin() {
-  const contenedor = document.getElementById("lista-solicitudes-admin");
-  const solicitudes = JSON.parse(localStorage.getItem("solicitudes_greenarqui")) || [];
-  if (solicitudes.length === 0) {
-    contenedor.innerHTML = "<p>Aún no hay solicitudes de cotización.</p>";
+formLogin.addEventListener("submit", async (e) => {
+
+  e.preventDefault();
+
+  const correo = document
+    .getElementById("admin-usuario")
+    .value.trim();
+
+  const password = document
+    .getElementById("admin-password")
+    .value;
+
+  if (!correo || !password) {
+    mostrarError("Completa el correo y la contraseña.");
     return;
   }
-  contenedor.innerHTML = solicitudes.map(sol => `
-    <div class="item-admin">
-      <div>
-        <p><strong>${sol.nombre}</strong> (${sol.pais}) - <em>${sol.fecha}</em></p>
-        <p><strong>Servicio:</strong> ${sol.servicio}</p>
-        <p><strong>Contacto:</strong> ${sol.correo} | ${sol.telefono}</p>
-        <p><strong>Mensaje:</strong> ${sol.mensaje}</p>
-      </div>
-      <button class="btn-eliminar-item" onclick="eliminarSolicitud(${sol.id})">Eliminar</button>
-    </div>
-  `).join("");
+
+  try {
+
+    ocultarError();
+
+    const credenciales = await signInWithEmailAndPassword(
+      auth,
+      correo,
+      password
+    );
+
+    if (credenciales.user.uid !== ADMIN_UID) {
+
+      await signOut(auth);
+
+      mostrarError("Esta cuenta no tiene permisos administrativos.");
+      return;
+
+    }
+
+    formLogin.reset();
+
+  } catch (error) {
+
+    console.error("Error de autenticación:", error);
+
+    mostrarError("No se pudo iniciar sesión. Verifica tus credenciales.");
+
+  }
+
+});
+
+// ==========================================
+// 6. CERRAR SESIÓN
+// ==========================================
+
+btnCerrarSesion.addEventListener("click", async () => {
+
+  try {
+
+    detenerActualizaciones();
+
+    await signOut(auth);
+
+    mostrarLogin();
+
+  } catch (error) {
+
+    console.error("Error al cerrar sesión:", error);
+
+    alert("No se pudo cerrar la sesión.");
+
+  }
+
+});
+
+// ==========================================
+// 7. DETENER ACTUALIZACIONES DE FIRESTORE
+// ==========================================
+
+function detenerActualizaciones() {
+
+  if (cancelarProyectos) {
+    cancelarProyectos();
+    cancelarProyectos = null;
+  }
+
+  if (cancelarSolicitudes) {
+    cancelarSolicitudes();
+    cancelarSolicitudes = null;
+  }
+
 }
 
-window.eliminarSolicitud = function(id) {
-  let sols = JSON.parse(localStorage.getItem("solicitudes_greenarqui")) || [];
-  sols = sols.filter(s => s.id !== id);
-  localStorage.setItem("solicitudes_greenarqui", JSON.stringify(sols));
-  cargarSolicitudesAdmin();
-};
+// ==========================================
+// 8. AGREGAR NUEVO PROYECTO
+// ==========================================
 
-const formNuevoProyecto = document.getElementById("form-nuevo-proyecto");
-formNuevoProyecto.addEventListener("submit", (e) => {
+formNuevoProyecto.addEventListener("submit", async (e) => {
+
   e.preventDefault();
-  const nuevo = {
-    id: Date.now(),
-    titulo: document.getElementById("proj-titulo").value,
-    categoria: document.getElementById("proj-categoria").value,
-    imagen: document.getElementById("proj-imagen").value,
-    boton: document.getElementById("proj-boton").value,
-    descripcion: document.getElementById("proj-descripcion").value
+
+  if (!auth.currentUser || auth.currentUser.uid !== ADMIN_UID) {
+    alert("No tienes autorización para publicar proyectos.");
+    return;
+  }
+
+  const nuevoProyecto = {
+
+    titulo: document.getElementById("proj-titulo").value.trim(),
+
+    categoria: document.getElementById("proj-categoria").value.trim(),
+
+    imagen: document.getElementById("proj-imagen").value.trim(),
+
+    boton: document.getElementById("proj-boton").value.trim(),
+
+    descripcion: document.getElementById("proj-descripcion").value.trim(),
+
+    fechaCreacion: new Date()
+
   };
-  const projs = JSON.parse(localStorage.getItem("proyectos_greenarqui")) || [];
-  projs.push(nuevo);
-  localStorage.setItem("proyectos_greenarqui", JSON.stringify(projs));
-  formNuevoProyecto.reset();
-  cargarProyectosAdmin();
+
+  if (
+    !nuevoProyecto.titulo ||
+    !nuevoProyecto.categoria ||
+    !nuevoProyecto.imagen ||
+    !nuevoProyecto.boton ||
+    !nuevoProyecto.descripcion
+  ) {
+    alert("Completa todos los campos del proyecto.");
+    return;
+  }
+
+  try {
+
+    await addDoc(
+      collection(db, COLECCION_PROYECTOS),
+      nuevoProyecto
+    );
+
+    formNuevoProyecto.reset();
+
+    alert("¡Proyecto publicado correctamente!");
+
+  } catch (error) {
+
+    console.error("Error al publicar proyecto:", error);
+
+    alert("No se pudo publicar el proyecto. Revisa la conexión y los permisos de Firestore.");
+
+  }
+
 });
+
+// ==========================================
+// 9. CARGAR PROYECTOS DESDE FIRESTORE
+// ==========================================
 
 function cargarProyectosAdmin() {
-  const contenedor = document.getElementById("lista-proyectos-admin");
-  const projs = JSON.parse(localStorage.getItem("proyectos_greenarqui")) || [];
-  if (projs.length === 0) {
-    contenedor.innerHTML = "<p>No hay proyectos dinámicos agregados todavía.</p>";
-    return;
+
+  if (cancelarProyectos) {
+    cancelarProyectos();
   }
-  contenedor.innerHTML = projs.map(p => `
-    <div class="item-admin">
-      <div>
-        <p><strong>${p.titulo}</strong> (${p.categoria})</p>
-        <p>${p.descripcion}</p>
-      </div>
-      <button class="btn-eliminar-item" onclick="eliminarProyecto(${p.id})">Eliminar</button>
-    </div>
-  `).join("");
+
+  const consulta = query(
+    collection(db, COLECCION_PROYECTOS),
+    orderBy("fechaCreacion", "desc")
+  );
+
+  cancelarProyectos = onSnapshot(consulta, (snapshot) => {
+
+    if (snapshot.empty) {
+
+      listaProyectos.innerHTML =
+        "<p>No hay proyectos agregados todavía.</p>";
+
+      return;
+
+    }
+
+    listaProyectos.innerHTML = snapshot.docs.map((documento) => {
+
+      const proyecto = documento.data();
+
+      return `
+        <div class="item-admin">
+
+          <div>
+            <p>
+              <strong>${escaparHTML(proyecto.titulo)}</strong>
+              (${escaparHTML(proyecto.categoria)})
+            </p>
+
+            <p>${escaparHTML(proyecto.descripcion)}</p>
+          </div>
+
+          <button
+            class="btn-eliminar-item"
+            data-id="${escaparHTML(documento.id)}"
+            data-tipo="proyecto"
+            type="button">
+            Eliminar
+          </button>
+
+        </div>
+      `;
+
+    }).join("");
+
+  }, (error) => {
+
+    console.error("Error al cargar proyectos:", error);
+
+    listaProyectos.textContent =
+      "No se pudieron cargar los proyectos. Revisa los permisos de Firestore.";
+
+  });
+
 }
 
-window.eliminarProyecto = function(id) {
-  let projs = JSON.parse(localStorage.getItem("proyectos_greenarqui")) || [];
-  projs = projs.filter(p => p.id !== id);
-  localStorage.setItem("proyectos_greenarqui", JSON.stringify(projs));
-  cargarProyectosAdmin();
-};
+// ==========================================
+// 10. ELIMINAR PROYECTO
+// ==========================================
 
-verificarSesion();
+listaProyectos.addEventListener("click", async (e) => {
+
+  const boton = e.target.closest('[data-tipo="proyecto"]');
+
+  if (!boton) return;
+
+  if (!auth.currentUser || auth.currentUser.uid !== ADMIN_UID) {
+    alert("No tienes autorización.");
+    return;
+  }
+
+  const id = boton.dataset.id;
+
+  if (!confirm("¿Seguro que deseas eliminar este proyecto?")) {
+    return;
+  }
+
+  try {
+
+    await deleteDoc(
+      doc(db, COLECCION_PROYECTOS, id)
+    );
+
+  } catch (error) {
+
+    console.error("Error al eliminar proyecto:", error);
+
+    alert("No se pudo eliminar el proyecto.");
+
+  }
+
+});
+
+// ==========================================
+// 11. CARGAR SOLICITUDES DESDE FIRESTORE
+// ==========================================
+
+function cargarSolicitudesAdmin() {
+
+  if (cancelarSolicitudes) {
+    cancelarSolicitudes();
+  }
+
+  const consulta = query(
+    collection(db, COLECCION_SOLICITUDES),
+    orderBy("fecha", "desc")
+  );
+
+  cancelarSolicitudes = onSnapshot(consulta, (snapshot) => {
+
+    if (snapshot.empty) {
+
+      listaSolicitudes.innerHTML =
+        "<p>Aún no hay solicitudes de cotización.</p>";
+
+      return;
+
+    }
+
+    listaSolicitudes.innerHTML = snapshot.docs.map((documento) => {
+
+      const solicitud = documento.data();
+
+      return `
+        <div class="item-admin">
+
+          <div>
+
+            <p>
+              <strong>${escaparHTML(solicitud.nombre)}</strong>
+              (${escaparHTML(solicitud.pais)})
+            </p>
+
+            <p>
+              <strong>Servicio:</strong>
+              ${escaparHTML(solicitud.servicio)}
+            </p>
+
+            <p>
+              <strong>Contacto:</strong>
+              ${escaparHTML(solicitud.correo)}
+              |
+              ${escaparHTML(solicitud.telefono)}
+            </p>
+
+            <p>
+              <strong>Mensaje:</strong>
+              ${escaparHTML(solicitud.mensaje)}
+            </p>
+
+            <p>
+              <strong>Fecha:</strong>
+              ${escaparHTML(
+                solicitud.fecha?.toDate
+                  ? solicitud.fecha.toDate().toLocaleString("es-PA")
+                  : "Sin fecha"
+              )}
+            </p>
+
+          </div>
+
+          <button
+            class="btn-eliminar-item"
+            data-id="${escaparHTML(documento.id)}"
+            data-tipo="solicitud"
+            type="button">
+            Eliminar
+          </button>
+
+        </div>
+      `;
+
+    }).join("");
+
+  }, (error) => {
+
+    console.error("Error al cargar solicitudes:", error);
+
+    listaSolicitudes.textContent =
+      "No se pudieron cargar las solicitudes. Revisa los permisos de Firestore.";
+
+  });
+
+}
+
+// ==========================================
+// 12. ELIMINAR SOLICITUD
+// ==========================================
+
+listaSolicitudes.addEventListener("click", async (e) => {
+
+  const boton = e.target.closest('[data-tipo="solicitud"]');
+
+  if (!boton) return;
+
+  if (!auth.currentUser || auth.currentUser.uid !== ADMIN_UID) {
+    alert("No tienes autorización.");
+    return;
+  }
+
+  const id = boton.dataset.id;
+
+  if (!confirm("¿Seguro que deseas eliminar esta solicitud?")) {
+    return;
+  }
+
+  try {
+
+    await deleteDoc(
+      doc(db, COLECCION_SOLICITUDES, id)
+    );
+
+  } catch (error) {
+
+    console.error("Error al eliminar solicitud:", error);
+
+    alert("No se pudo eliminar la solicitud.");
+
+  }
+
+});

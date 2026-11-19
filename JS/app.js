@@ -1,32 +1,12 @@
-// ==========================================
-// 1. FORMULARIO DE CONTACTO
-// ==========================================
-const formContacto = document.getElementById("form-contacto");
-const mensajeExito = document.getElementById("mensaje-exito");
-
-if (formContacto) {
-  formContacto.addEventListener("submit", function (evento) {
-    evento.preventDefault();
-    const nuevaSolicitud = {
-      id: Date.now(),
-      nombre: document.getElementById("nombre").value,
-      correo: document.getElementById("correo").value,
-      telefono: document.getElementById("telefono").value,
-      pais: document.getElementById("pais").value,
-      servicio: document.getElementById("servicio-interes").value,
-      mensaje: document.getElementById("mensaje").value,
-      fecha: new Date().toLocaleDateString("es-PA")
-    };
-
-    const solicitudesGuardadas = JSON.parse(localStorage.getItem("solicitudes_greenarqui")) || [];
-    solicitudesGuardadas.push(nuevaSolicitud);
-    localStorage.setItem("solicitudes_greenarqui", JSON.stringify(solicitudesGuardadas));
-
-    formContacto.reset();
-    mensajeExito.hidden = false;
-    setTimeout(() => { mensajeExito.hidden = true; }, 5000);
-  });
-}
+const firebaseConfig = {
+  apiKey: "AIzaSyD--lDRISE957h3vaO6mDcdwLhEZ8JGXiE",
+  authDomain: "green-arqui.firebaseapp.com",
+  projectId: "green-arqui",
+  storageBucket: "green-arqui.firebasestorage.app",
+  messagingSenderId: "237700686758",
+  appId: "1:237700686758:web:cda7b339f6a71626cde567",
+  measurementId: "G-BT1EW1G7ER"
+};
 
 // ==========================================
 // 2. RENDERIZAR PROYECTOS DINÁMICOS
