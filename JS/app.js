@@ -2,9 +2,11 @@
 import { db } from "./firebase.js";
 
 import {
-  collection,
-  onSnapshot
-} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+    addDoc,
+    collection,
+    onSnapshot,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";;
 
 // ==========================================
 // 1. RENDERIZAR PROYECTOS DESDE FIRESTORE
@@ -313,3 +315,66 @@ window.irACotizarConServicio = function (valorServicio) {
   }
 
 };
+// ==========================================
+// FORMULARIO DE CONTACTO - FIREBASE
+// ==========================================
+
+const formularioContacto = document.getElementById("form-contacto");
+const mensajeExito = document.getElementById("mensaje-exito");
+
+if (formularioContacto) {
+    formularioContacto.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const botonEnviar = formularioContacto.querySelector(
+            'button[type="submit"]'
+        );
+
+        const solicitud = {
+            nombre: document.getElementById("nombre").value.trim(),
+            correo: document.getElementById("correo").value.trim(),
+            telefono: document.getElementById("telefono").value.trim(),
+            pais: document.getElementById("pais").value,
+            servicio: document.getElementById("servicio-interes").value,
+            mensaje: document.getElementById("mensaje").value.trim(),
+            fecha: serverTimestamp()
+        };
+
+        if (
+            !solicitud.nombre ||
+            !solicitud.correo ||
+            !solicitud.telefono ||
+            !solicitud.pais ||
+            !solicitud.servicio ||
+            !solicitud.mensaje
+        ) {
+            alert("Por favor, completa todos los campos.");
+            return;
+        }
+
+        botonEnviar.disabled = true;
+        botonEnviar.textContent = "Enviando...";
+
+        try {
+            await addDoc(collection(db, "solicitudes"), solicitud);
+
+            formularioContacto.reset();
+
+            mensajeExito.textContent =
+                "¡Gracias! Hemos recibido tu solicitud. Nuestro equipo se pondrá en contacto contigo pronto.";
+
+            mensajeExito.hidden = false;
+
+        } catch (error) {
+            console.error("Error al enviar la solicitud:", error);
+
+            alert(
+                "No pudimos enviar tu solicitud. Inténtalo nuevamente."
+            );
+
+        } finally {
+            botonEnviar.disabled = false;
+            botonEnviar.textContent = "Enviar mensaje";
+        }
+    });
+}
